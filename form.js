@@ -1,9 +1,8 @@
 document
   .getElementById("contact-form")
   .addEventListener("submit", function (event) {
-    event.preventDefault(); // Prevent the default form submission
+    event.preventDefault();
 
-    // Simple client-side validation
     const name = document.getElementById("name").value.trim();
     const phone = document.getElementById("phone").value.trim();
     const message = document.getElementById("message").value.trim();
@@ -11,50 +10,51 @@ document
     if (name === "" || phone === "" || message === "") {
       Swal.fire({
         icon: "error",
-        title: "Ошибка",
-        text: "Все поля обязательны для заполнения!",
+        title: "Errore",
+        text: "Tutti i campi sono obbligatori!",
       });
       return;
     }
 
-    // Check reCAPTCHA
-    const recaptchaResponse = grecaptcha.getResponse();
-    if (recaptchaResponse.length === 0) {
-      Swal.fire({
-        icon: "error",
-        title: "Ошибка",
-        text: "Пожалуйста, подтвердите, что вы не робот.",
-      });
-      return;
-    }
-
-    // If everything is valid, submit the form
-    fetch("https://formspree.io/f/abcxyz123", {
-      method: "POST",
-      body: new FormData(document.getElementById("contact-form")),
-    })
-      .then((response) => {
-        if (response.ok) {
-          Swal.fire({
-            icon: "success",
-            title: "Спасибо!",
-            text: "Ваше сообщение отправлено.",
-          }).then(() => {
-            document.getElementById("contact-form").reset(); // Reset the form after success
+    // Mostra la finestra modale di conferma
+    Swal.fire({
+      title: "Conferma l'invio",
+      text: "Sei sicuro di voler inviare il messaggio?",
+      icon: "question",
+      showCancelButton: true,
+      confirmButtonText: "Invia",
+      cancelButtonText: "Annulla",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // Invia il modulo solo se confermato
+        fetch("https://formspree.io/f/xnnpgkke", {
+          method: "POST",
+          body: new FormData(document.getElementById("contact-form")),
+        })
+          .then((response) => {
+            if (response.ok) {
+              Swal.fire({
+                icon: "success",
+                title: "Grazie!",
+                text: "Il tuo messaggio è stato inviato con successo.",
+              }).then(() => {
+                document.getElementById("contact-form").reset();
+              });
+            } else {
+              Swal.fire({
+                icon: "error",
+                title: "Errore",
+                text: "Qualcosa è andato storto. Riprova più tardi.",
+              });
+            }
+          })
+          .catch(() => {
+            Swal.fire({
+              icon: "error",
+              title: "Errore",
+              text: "Impossibile inviare il modulo. Riprova più tardi.",
+            });
           });
-        } else {
-          Swal.fire({
-            icon: "error",
-            title: "Ошибка",
-            text: "Что-то пошло не так. Попробуйте снова.",
-          });
-        }
-      })
-      .catch((error) => {
-        Swal.fire({
-          icon: "error",
-          title: "Ошибка",
-          text: "Не удалось отправить форму. Попробуйте позже.",
-        });
-      });
+      }
+    });
   });
