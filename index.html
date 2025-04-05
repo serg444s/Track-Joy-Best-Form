@@ -15,8 +15,14 @@
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
     />
+    <link
+      href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.9/dist/sweetalert2.min.css"
+      rel="stylesheet"
+    />
+
     <link rel="stylesheet" href="./base.css" />
     <link rel="stylesheet" href="./styles.css" />
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
   </head>
   <body>
     <div class="wrap">
@@ -356,10 +362,36 @@
           Contattaci oggi stesso per scoprire come possiamo trasformare le tue
           idee in realtà digitali di successo!
         </p>
-        <form class="contact-form">
-          <input type="text" id="name" placeholder="Nome" />
-          <input type="text" id="phone" placeholder="Telefono" />
-          <textarea id="message" placeholder="Messaggio"></textarea>
+        <form
+          class="contact-form"
+          action="https://formspree.io/f/xnnpgkke"
+          method="POST"
+        >
+          <input
+            type="text"
+            id="name"
+            name="name"
+            required
+            placeholder="Nome"
+          />
+          <input
+            type="text"
+            id="phone"
+            name="phone"
+            required
+            placeholder="Telefono"
+          />
+          <textarea
+            id="message"
+            required
+            name="message"
+            placeholder="Messaggio"
+          ></textarea>
+          <div
+            class="g-recaptcha"
+            data-sitekey="6LeSMAsrAAAAAIGgXHnHlJspSdTM1ZjjTfydimvp"
+          ></div>
+
           <button type="submit" class="form-btn">Contattaci</button>
         </form>
       </section>
@@ -387,5 +419,6 @@
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script src="./main.js"></script>
     <script src="./swiper.js"></script>
+    <script src="./form.js"></script>
   </body>
 </html>
