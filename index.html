@@ -22,7 +22,7 @@
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 
     <link rel="stylesheet" href="./base.css" />
-    <link rel="stylesheet" href="./styles.css" />
+    <link rel="stylesheet" href="./styles.css?v=2.0" />
   </head>
   <body>
     <div class="wrap">
@@ -368,23 +368,10 @@
           method="POST"
           id="contact-form"
         >
-          <input
-            type="text"
-            id="name"
-            name="name"
-            required
-            placeholder="Nome"
-          />
-          <input
-            type="tel"
-            id="phone"
-            name="phone"
-            required
-            placeholder="Telefono"
-          />
+          <input type="text" id="name" name="name" placeholder="Nome" />
+          <input type="tel" id="phone" name="phone" placeholder="Telefono" />
           <textarea
             id="message"
-            required
             name="message"
             placeholder="Messaggio"
           ></textarea>
@@ -421,6 +408,6 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="./main.js"></script>
     <script src="./swiper.js"></script>
-    <script src="./form.js"></script>
+    <script src="./form.js?v=2.0"></script>
   </body>
 </html>
